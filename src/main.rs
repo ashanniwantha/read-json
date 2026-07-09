@@ -37,8 +37,29 @@ fn main() {
         "\n\n The name of the first paragraph is: {}",
         parsed.paragraph[0].name
     );
+
+    let article: Article = Article {
+        article: String::from("Who is Ashan Niwantha?"),
+        author: String::from("Ashan Niwantha"),
+        paragraph: vec![
+            Paragraph {
+                name: String::from("He loves rust!"),
+            },
+            Paragraph {
+                name: String::from("He loves json!"),
+            },
+        ],
+    };
+
+    let json: String = write_to_json(&article);
+
+    println!("\n JSON: {}", json);
 }
 
 fn read_json_types(raw_json: &str) -> Article {
     serde_json::from_str(raw_json).unwrap()
+}
+
+fn write_to_json(payload: &Article) -> String {
+    serde_json::to_string(&payload).unwrap()
 }
